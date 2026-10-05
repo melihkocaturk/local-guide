@@ -1,0 +1,49 @@
+.lg-business-admin h3 {
+    margin: 24px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.lg-business-admin h3:first-child {
+    margin-top: 0;
+}
+
+.lg-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 16px;
+}
+
+.lg-admin-grid p {
+    margin: 0 0 14px;
+}
+
+.lg-admin-grid p:first-child {
+    grid-column: 1 / -1;
+}
+
+.lg-admin-grid label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.lg-hours-table input[type="time"] {
+    min-width: 120px;
+}
+
+.lg-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px 18px;
+}
+
+@media (max-width: 782px) {
+    .lg-admin-grid,
+    .lg-feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lg-admin-grid p:first-child {
+        grid-column: auto;
+    }
+}
