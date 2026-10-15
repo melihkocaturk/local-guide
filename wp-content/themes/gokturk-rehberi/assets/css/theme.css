@@ -259,3 +259,56 @@ a {
         margin-bottom: 0.75rem;
     }
 }
+
+.page h1 {
+    font-size: 2rem;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+}
+
+.page h2 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.page h3 {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.page h4 {
+    font-size: 1.125rem;
+    line-height: 1.5;
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.page {
+    line-height: 1.8;
+}
+
+.page p {
+    margin-bottom: 1.25rem;
+}
+
+@media (max-width: 575.98px) {
+    .page h1 {
+        font-size: 1.75rem;
+    }
+
+    .page h2 {
+        font-size: 1.35rem;
+    }
+
+    .page h3 {
+        font-size: 1.15rem;
+    }
+
+    .page h4 {
+        font-size: 1.05rem;
+    }
+}

@@ -1,12 +1,16 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-$selected_category = isset( $_GET['business_category'] ) ? sanitize_title( wp_unslash( $_GET['business_category'] ) ) : '';
-$categories        = get_terms(
+$selected_category = isset( $_GET['business_category'] )
+    ? sanitize_title( wp_unslash( $_GET['business_category'] ) )
+    : '';
+
+$categories = get_terms(
     array(
         'taxonomy'   => 'business_category',
-        'hide_empty' => true,
-        'parent'     => 0,
+        'hide_empty' => false,
+        'orderby'    => 'name',
+        'order'      => 'ASC',
     )
 );
 
@@ -26,11 +30,37 @@ get_header();
                 <label class="visually-hidden" for="business-category-filter">Kategori</label>
                 <select class="form-select" id="business-category-filter" name="business_category">
                     <option value="">Tüm kategoriler</option>
-                    <?php foreach ( $categories as $category ) : ?>
-                        <option value="<?php echo esc_attr( $category->slug ); ?>" <?php selected( $selected_category, $category->slug ); ?>>
-                            <?php echo esc_html( $category->name ); ?>
-                        </option>
-                    <?php endforeach; ?>
+                    <?php
+                    $categories_by_parent = array();
+
+                    foreach ( $categories as $category ) {
+                        $categories_by_parent[ $category->parent ][] = $category;
+                    }
+
+                    $render_categories = function ( $parent_id = 0, $depth = 0 ) use ( &$render_categories, $categories_by_parent, $selected_category ) {
+                        if ( empty( $categories_by_parent[ $parent_id ] ) ) {
+                            return;
+                        }
+
+                        foreach ( $categories_by_parent[ $parent_id ] as $category ) {
+                            $prefix = $depth > 0
+                                ? str_repeat( '— ', $depth )
+                                : '';
+
+                            printf(
+                                '<option value="%s" %s>%s%s</option>',
+                                esc_attr( $category->slug ),
+                                selected( $selected_category, $category->slug, false ),
+                                esc_html( $prefix ),
+                                esc_html( $category->name )
+                            );
+
+                            $render_categories( $category->term_id, $depth + 1 );
+                        }
+                    };
+
+                    $render_categories();
+                    ?>
                 </select>
             </div>
             <div class="col-sm-auto">
